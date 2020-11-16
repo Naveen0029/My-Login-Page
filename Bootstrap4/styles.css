@@ -1,0 +1,25 @@
+.footer{
+    
+    background-color:lightblue;
+    margin:80px 0px 0px 0px;
+    padding-top: 25px;
+}
+
+body {
+    /*navigation bar is hiding the jumbotron so we are giving padding*/
+    padding:50px 0px 0px 0px;
+    z-index: 0;
+
+}
+
+.navbar-dark{
+    background-color: black;
+    
+}
+.form-signIn{
+    padding-top:50px;
+    
+}
+.sign-in-color{
+    background-color: lightslategray;
+}

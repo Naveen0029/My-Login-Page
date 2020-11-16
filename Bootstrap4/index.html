@@ -1,0 +1,108 @@
+  <!doctype html>
+  <html>
+      <head>
+        <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="./styles.css">
+    <title>Login Page</title>
+      </head>
+      <body>
+          <nav class="navbar navbar-dark navbar-expand-sm fixed-top">
+              <div class="container">
+                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Navbar">
+                        <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="Navbar">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active"><a class="nav-link" href="#">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Services</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Work</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Menu</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Price</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">contact</a></li>
+                    </ul>
+                  </div>
+                 
+              </div>
+          </nav>
+        <header class="jumbotron">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-sm-6">
+                       <h1>Login Page! to our website</h1>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+         <div class="container">
+              <div class="row">
+                  <div class="col-12 col-sm-12 text-center">
+                    <h4>Simply fill the details if you have an account on our website</h4>
+                   </div>
+              </div>
+
+              <div class="row form-signIn justify-content-center">
+                  
+                   <div class="col-10 col-sm-4 sign-in-color">
+                       <h1 style="color:white">SIGN IN</h1>
+                       <p style="color:wheat">Enter your username and password for log in:</p>
+                   </div>
+                   <div class="col-2 col-sm-2 sign-in-color text-center" style="padding-top:10px;">
+                      <i class="fa fa-lock fa_custom fa-4x"></i>
+                   </div>
+                
+              </div>
+              
+                <div class="row justify-content-center">
+                    <div class="col-12 col-sm-6 col-md-6 sign-in-color">
+                        <form role="form" action="/submit-data" method="post">
+                            <div class="form-group row">
+                               <div class="col-12 col-sm-12">
+                                   <input type="text" placeholder="Username" class="form-control" id="username" name="username">
+                               </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-12 col-sm-12">
+                                    <input type="password" placeholder="Password" class="form-control" id="password" name="password">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-6 col-sm-6 text-left">
+                                    <button type="submit" class="btn btn-primary">Sign in!</button>
+                                </div>
+                                <div class="col-6 col-sm-6 text-right">
+                                
+                                    <a href="./signup.html" class="btn btn-primary" role="button" aria-pressed="true">Create Account</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+              
+
+          </div>
+    
+        <footer class="footer">
+            <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-auto">
+                  <p>&copycopyright 2020 simple login page</p>
+                </div>
+            </div>
+            </div>
+        </footer>
+           <!-- jQuery first, then Popper.js, then Bootstrap JS. -->
+    <script src="./node_modules/jquery/dist/jquery.slim.min.js"></script>
+    <script src="./node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+      </body>
+  </html>

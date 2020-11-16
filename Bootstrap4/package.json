@@ -1,0 +1,19 @@
+{
+  "name": "bootstrap4",
+  "version": "1.0.0",
+  "description": "this is a simple login page",
+  "main": "index.js",
+  "scripts": {
+    "start":"npm run lite",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lite":"lite-server"
+  },
+  "author": "Naveen Bishnoi",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^4.5.3",
+    "jquery": "^3.5.1",
+    "lite-server": "^2.5.4",
+    "popper.js": "^1.16.1"
+  }
+}
