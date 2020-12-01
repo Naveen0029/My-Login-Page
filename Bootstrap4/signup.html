@@ -49,7 +49,7 @@
                   <h4>Simply fill the details if you want to create an account on our website</h4>
                  </div>
             </div></br></br>
-            <form>
+            <form role="form" action="/" method="post">
                 <div class="form-row">
                   <div class="form-group col-md-6">
                     <label for="inputEmail4">Email</label>
@@ -65,7 +65,7 @@
                   <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
                 </div>
                 <div class="form-group">
-                  <label for="inputAddress2">Address 2</label>
+                  <label for="inputAddress2">Address2</label>
                   <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
                 </div>
                 <div class="form-row">
@@ -76,8 +76,10 @@
                   <div class="form-group col-md-4">
                     <label for="inputState">State</label>
                     <select id="inputState" class="form-control">
-                      <option selected>Choose...</option>
-                      <option>...</option>
+                      <option selected>Uttar Pardesh</option>
+                      <option>Haryana</option>
+                      <option>Punjab</option>
+                      <option>Rajasthan</option>
                     </select>
                   </div>
                   <div class="form-group col-md-2">
@@ -110,6 +112,12 @@
 <script src="./node_modules/jquery/dist/jquery.slim.min.js"></script>
 <script src="./node_modules/popper.js/dist/umd/popper.min.js"></script>
 <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script>  axios
+  .post('http://localhost:3000/')
+  .then(response => {
+      document.body.innerHTML = 
+          `<pre>${JSON.stringify(response.data, null, 4)}</pre>`;
+  });</script>
   </body>
 </html>
    
