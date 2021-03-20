@@ -58,6 +58,8 @@ function auth(req,res,next){
 
 }
 app.use(auth);
+
+
 var server=app.listen(3000,function(){
       console.log('server is running at 3000');
   });

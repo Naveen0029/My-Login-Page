@@ -1,5 +1,5 @@
 var express = require('express');
-
+var passport= require('passport');
 const bodyParser=require('body-parser');
 const mongoose=require('mongoose');
 
@@ -17,13 +17,18 @@ indexRouter.get('/signup',function(req,res){
     //return res.sendFile('./Backend/Bootstrap4/index.html');
     res.sendFile('Result.html', { root: './Bootstrap4' });
 });
+indexRouter.get('/secret',function(req,res){
+    //return res.sendFile('./Backend/Bootstrap4/index.html');
+    res.sendFile('secret.html', { root: './Bootstrap4' });
+});
+
 indexRouter.post('/signup',function(req,res){
     signups.findOne({Email:req.body.Email})
     .then((user)=>{
         if(user!=null){
             var err = new Error('User ' + req.body.Email + 'already exists!');
             err.status=403;
-            console.log(err);
+            res.redirect('/');
         }
         else{
             signups.create(req.body)
@@ -83,14 +88,15 @@ indexRouter.post('/submit-data',function(req,res){
             else if (user.Password !== password) {
                 var err = new Error('Your password is incorrect!');
                 err.status = 403;
-                return console.log(err);
+                //return console.log(err);
+                res.redirect('/');
               }
             else if (user.Email === Email && user.Password === password) {
                 req.session.user = 'authenticated';
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'text/plain');
-                console.log('yupppp');
-                res.end('You are authenticated!')
+                
+                res.redirect('/secret');
             }
         })
         .catch((err)=>console.log(err));
@@ -98,9 +104,23 @@ indexRouter.post('/submit-data',function(req,res){
     else {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'text/plain');
-        res.end('You are already authenticated!');
+        res.redirect('/secret');
       }
+
 });
+
+indexRouter.get('/logout', (req, res) => {
+    if (req.session) {
+      req.session.destroy();
+      res.clearCookie('session-id');
+      res.redirect('/');
+    }
+    else {
+      var err = new Error('You are not logged in!');
+      err.status = 403;
+      console.log(err);
+    }
+  });
 
 
 module.exports=indexRouter;
