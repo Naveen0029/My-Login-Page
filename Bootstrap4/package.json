@@ -4,9 +4,9 @@
   "description": "this is a simple login page",
   "main": "index.js",
   "scripts": {
-    "start":"npm run lite",
+    "start": "npm run lite",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lite":"lite-server"
+    "lite": "lite-server"
   },
   "author": "Naveen Bishnoi",
   "license": "ISC",

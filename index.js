@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({extended:false}));
 const mongoose=require('mongoose');
 const signups=require('./models/submitSignup');
 
-const url = 'mongodb://localhost:27017/signup';
+const url = 'mongodb+srv://admin-naveen0029:Naveen123@cluster0.j0gwg.mongodb.net/myFirstDatabase';
 const connect = mongoose.connect(url,{useNewUrlParser: true,useCreateIndex:true,useUnifiedTopology:true});
 
 connect.then((db) => {
@@ -60,7 +60,7 @@ function auth(req,res,next){
 app.use(auth);
 
 
-var server=app.listen(3000,function(){
+var server=app.listen(process.env.PORT||3000,function(){
       console.log('server is running at 3000');
   });
   
