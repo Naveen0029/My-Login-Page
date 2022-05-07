@@ -1,5 +1,5 @@
 const mongoose=require('mongoose');
-
+const passportLocalMongoose=require('passport-local-mongoose');
 const Schema=mongoose.Schema;
 
 require('mongoose-currency').loadType(mongoose);
@@ -9,11 +9,16 @@ const currency = mongoose.Types.currency;
 const signupSchema = new Schema({
     Email:{
         type:String,
-        unique:true
+        unique:true,
+        default:""
     },
-    Password:{
-        type:String,
-        required:true
+    hash1: {
+         type:String,
+         default:""
+    },
+    salt1: {
+         type:String,
+        
     },
     Address:{
          type:String,
@@ -40,6 +45,6 @@ const signupSchema = new Schema({
     timestamps:true
 });
 
-
+signupSchema.plugin(passportLocalMongoose);
 var signups=mongoose.model('siginup',signupSchema);
 module.exports = signups;

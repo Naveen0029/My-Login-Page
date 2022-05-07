@@ -2,6 +2,7 @@ var express = require('express');
 var passport= require('passport');
 const bodyParser=require('body-parser');
 const mongoose=require('mongoose');
+const authenticate = require('../authenticate')
 
 
 const signups=require('../models/submitSignup');
@@ -17,10 +18,12 @@ indexRouter.get('/signup',function(req,res){
     //return res.sendFile('./Backend/Bootstrap4/index.html');
     res.sendFile('Result.html', { root: './Bootstrap4' });
 });
-indexRouter.get('/secret',function(req,res){
+
+indexRouter.get('/secret',authenticate.verifyUser,function(req,res){
     //return res.sendFile('./Backend/Bootstrap4/index.html');
     res.sendFile('secret.html', { root: './Bootstrap4' });
 });
+
 
 indexRouter.post('/signup',function(req,res){
     signups.findOne({Email:req.body.Email})
@@ -31,10 +34,26 @@ indexRouter.post('/signup',function(req,res){
             res.redirect('/');
         }
         else{
-            signups.create(req.body)
+
+            const saltHash = authenticate.genPassword(req.body.Password);
+
+            const salt = saltHash.salt;
+            const hash = saltHash.hash;
+
+            const newUser = new signups({
+                Email:req.body.Email,
+                hash:hash,
+                salt:salt,
+                Address:req.body.Address,
+                Address2:req.body.Address2,
+                City:req.body.City,
+                State:req.body.State,
+                Zip:req.body.Zip
+            })
+            newUser.save()
             .then((signup)=>{
             console.log("Your account is created",signup);   
-           res.statusCode = 200;
+            res.statusCode = 200;
             return  res.redirect('/signup');
             })
            .catch((err)=>{
@@ -43,69 +62,31 @@ indexRouter.post('/signup',function(req,res){
       }
     });
     
-    
-
-    /*
-    var email=req.body.Email;
-    var password=req.body.Password;
-
-    var data={
-        "Email":email,
-        "Password":password
-    }
-    db.collection('details').insertOne(data,function(err, collection){ 
-        if (err) throw err; 
-        console.log("Record inserted Successfully"); 
-              
-    }); 
-          
-    return res.redirect('signup_success.html'); */
 });
 indexRouter.post('/submit-data',function(req,res){
-       if(!req.session.user){
-           var authHeader=req.body.Email;
+      signups.findOne({Email:req.body.Email})
+      .then((user)=>{
+          if(!user){
+              return res.status(401).json({sucess:false,
+                msg:"could not find user"});
+          }
+        //   console.log(`i am user ${user}`);
+          
+          const isValid = authenticate.isvalidPassword(req.body.Password,user.hash1,user.salt1);
+          
+          if(isValid){
+            //   console.log('i am here');
+              const tokenObj = authenticate.generateToken(user);
+              res.header('Authorization ',tokenObj).status(200).send(tokenObj);
 
-           if(!authHeader){
-            var err=new Error ('You are not authenticated!');
-            res.setHeader('WWW-Authenticate','Basic');
-            err.status=401;
-            return console.log(err); 
-           }
-           /*var auth= new Buffer.from(authHeader.split(' ')[1],'base64').toString().split(':');
-           var Email=auth[0];
-           var password=auth[1];*/
-           var Email=req.body.Email;
-           var password=req.body.password;
-        
-
-        signups.findOne({Email:Email})
-        .then((user)=>{
-            if(user==null){
-                var err=new Error('User' + + Email + ' does not exist!');
-                err.status = 403;
-                return console.log(err);
-            }
-            else if (user.Password !== password) {
-                var err = new Error('Your password is incorrect!');
-                err.status = 403;
-                //return console.log(err);
-                res.redirect('/');
-              }
-            else if (user.Email === Email && user.Password === password) {
-                req.session.user = 'authenticated';
-                res.statusCode = 200;
-                res.setHeader('Content-Type', 'text/plain');
-                
-                res.redirect('/secret');
-            }
-        })
-        .catch((err)=>console.log(err));
-    }
-    else {
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'text/plain');
-        res.redirect('/secret');
-      }
+          }
+          else{
+              res.status(401).json({sucess: false,msg:"You entered wrong password"});
+          }
+      })
+      .catch((err)=>{
+          res.status(401).json({success:false,msg:"some error occured"});
+      })
 
 });
 
